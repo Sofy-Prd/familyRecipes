@@ -1,5 +1,7 @@
 require('dotenv').config();
 
+const pkg = require('./package.json')
+
 const bodyParser   = require('body-parser');
 const cookieParser = require('cookie-parser');
 const express      = require('express');
@@ -8,14 +10,14 @@ const favicon      = require('serve-favicon');
 const mongoose     = require('mongoose');
 // const logger       = require('morgan');
 const path         = require('path');
+const cors         = require('cors');
 
 
 mongoose
-  .connect('mongodb://localhost/familyRecipes', {useNewUrlParser: true})
-  .then(x => {
-    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
-  })
-  .catch(err => {
+  .connect(`mongodb://localhost/${pkg.name}`, { useNewUrlParser: true })
+  .then(() => {
+    console.log('Connected to Mongo!')
+  }).catch(err => {
     console.error('Error connecting to mongo', err)
   });
 
@@ -45,10 +47,17 @@ app.use(require('node-sass-middleware')({
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
+app.use(cors({
+  credentials: true,
+  origin: ['http://localhost:3000']
+}))
 
 
 const index = require('./routes/index');
 app.use('/', index);
+
+const recipeRoutes = require('./routes/recipes')
+app.use('/api', recipeRoutes);
 
 
 module.exports = app;
