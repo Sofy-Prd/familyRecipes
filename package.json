@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon ./bin/www",
-    "dev": "DEBUG=todolistapi:* nodemon ./bin/www",
+    "dev": "DEBUG=recipesapi:* nodemon ./bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
