@@ -2,6 +2,7 @@ const express = require('express');
 const router  = express.Router();
 const Recipe= require('../models/Recipe.js');
 
+
 // LIST
 router.get('/recipes', (req, res, next) => {
     Recipe.find().sort({createdAt: -1})
@@ -15,7 +16,7 @@ router.post('/recipes', (req, res, next)=>{
         title: req.body.title,
         ingredients: req.body.ingredients,
         dishType: req.body.dishType,
-        image: req.body.image,
+        imageUrl: req.body.imageUrl,
         preparation: req.body.preparation,
         cookingTime:req.body.cookingTime,
         duration: req.body.duration,

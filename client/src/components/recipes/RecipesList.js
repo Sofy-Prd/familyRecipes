@@ -25,7 +25,7 @@ class RecipesList extends Component {
       <div className="recipesList">
         <AddRecipe getAllRecipes={this.getAllRecipes}/>
            {this.state.listOfRecipes.map(recipe => (
-            <div className="recipe" key={recipe._id}><RecipeBox title={recipe.title} dishType={recipe.dishType}/></div>))}
+            <div className="recipe" key={recipe._id}><RecipeBox title={recipe.title} dishType={recipe.dishType} imageUrl={recipe.imageUrl}/></div>))}
      
       </div>
     )

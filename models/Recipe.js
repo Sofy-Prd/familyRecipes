@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 const recipeSchema = new Schema({
   title: {type: String, required: true, unique: true},
   ingredients: {type: Array},
-  dishType: {type: String, enum: ['Apéritif', 'Entrée', 'Plat', 'Dessert', 'Autre']},
-  image: {type: String},
+  dishType: {type: String},
+  imageUrl: {type: String},
   preparation: {type: Array},
   cookingTime:{type:Number},
   duration: {type: Number},

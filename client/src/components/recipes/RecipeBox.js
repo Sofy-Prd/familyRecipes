@@ -9,6 +9,7 @@ class RecipeBox extends Component {
       <div className="recipeBox">
         <h2> {this.props.title}</h2>
         <p>{this.props.dishType}</p>
+        <img src={this.props.imageUrl} alt="recette"/>
       </div>
     )
   }

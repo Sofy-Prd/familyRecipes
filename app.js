@@ -14,12 +14,15 @@ const cors         = require('cors');
 
 
 mongoose
-  .connect(`mongodb://localhost/${pkg.name}`, { useNewUrlParser: true })
+  .connect(`mongodb://localhost/${pkg.name}`, { useUnifiedTopology: true, useNewUrlParser: true })
   .then(() => {
     console.log('Connected to Mongo!')
   }).catch(err => {
     console.error('Error connecting to mongo', err)
   });
+
+mongoose.set('useCreateIndex', true);
+
 
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
@@ -50,7 +53,7 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 app.use(cors({
   credentials: true,
   origin: ['http://localhost:3000']
-}))
+}));
 
 
 const index = require('./routes/index');
@@ -58,6 +61,8 @@ app.use('/', index);
 
 const recipeRoutes = require('./routes/recipes')
 app.use('/api', recipeRoutes);
+
+app.use('/api', require('./routes/file-upload-routes'));
 
 
 module.exports = app;
