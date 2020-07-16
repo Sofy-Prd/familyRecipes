@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import RecipeBox from './RecipeBox.js';
-import AddRecipe from './AddRecipe.js';
+// import AddRecipe from './AddRecipe.js';
 
 //lister toutes les recettes
 class RecipesList extends Component {
@@ -23,7 +24,8 @@ class RecipesList extends Component {
   render(){
     return(
       <div className="recipesList">
-        <AddRecipe getAllRecipes={this.getAllRecipes}/>
+        <Link to="/addrecipe">Ajouter une recette</Link>
+        {/* <AddRecipe getAllRecipes={this.getAllRecipes}/> */}
            {this.state.listOfRecipes.map(recipe => (
             <div className="recipe" key={recipe._id}><RecipeBox title={recipe.title} dishType={recipe.dishType} imageUrl={recipe.imageUrl}/></div>))}
      

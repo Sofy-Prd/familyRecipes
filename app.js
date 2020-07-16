@@ -11,6 +11,11 @@ const mongoose     = require('mongoose');
 // const logger       = require('morgan');
 const path         = require('path');
 const cors         = require('cors');
+const session       = require('express-session');
+const passport      = require('passport');
+
+require('./configs/passport');
+
 
 
 mongoose
@@ -55,9 +60,21 @@ app.use(cors({
   origin: ['http://localhost:3000']
 }));
 
+app.use(session({
+  secret:"some secret goes here",
+  resave: true,
+  saveUninitialized: true
+}));
 
-const index = require('./routes/index');
-app.use('/', index);
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+// const index = require('./routes/index');
+// app.use('/', index);
+
+const authRoutes = require('./routes/auth-routes');
+app.use('/api', authRoutes);
 
 const recipeRoutes = require('./routes/recipes')
 app.use('/api', recipeRoutes);

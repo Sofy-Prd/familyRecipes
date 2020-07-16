@@ -12,6 +12,14 @@ router.get('/recipes', (req, res, next) => {
 
 // CREATE
 router.post('/recipes', (req, res, next)=>{
+
+  // Check if logged-in
+  if (!req.user) {
+    res.status(401).json({
+      message: "You need to be logged-in to create a project"
+    });
+    return;
+  }
     Recipe.create({
         title: req.body.title,
         ingredients: req.body.ingredients,
@@ -21,7 +29,7 @@ router.post('/recipes', (req, res, next)=>{
         cookingTime:req.body.cookingTime,
         duration: req.body.duration,
         temperature: req.body.temperature,
-        creator: req.body.creator,
+        creator: req.user._id,
         created: req.body.created 
     })
         .then(recipe=> res.status(201).json(recipe))
